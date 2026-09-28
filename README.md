@@ -232,6 +232,7 @@ Digital notice boards
 Advertisements
 Status messages
 Information displays
+
 ##  11. Display Mode 4 — Time Display
 
 The LPC2148 internal RTC maintains the current time.
@@ -286,6 +287,7 @@ General Formula
 ----
    ADC Resolution × 10 mV
 -----
+
 ##  14. Display Mode 7 — Text Edit Mode
 
 Text Edit Mode allows the user to enter a custom message using the Android Bluetooth terminal.
@@ -327,10 +329,8 @@ The firmware validates the received values before updating the RTC.
 ##  16. Input Validation
 
 Input validation prevents incorrect values from being written to the RTC.
----
+
 Valid Ranges
----
-Parameter	Valid Range
 ---
    Seconds	: 00–59
    ---
@@ -387,7 +387,7 @@ The firmware continuously updates the required display patterns to produce stabl
 The 74HC164 is an 8-bit serial-in/parallel-out shift register.
 
 It receives serial data and shifts the data according to the clock signal.
----
+
 Main Signals:
 ---
    Data — serial input
@@ -410,10 +410,11 @@ Better system responsiveness
 Efficient CPU utilization
 Suitable for real-time applications
 Reliable command reception
+
 ##  22. SPI EEPROM Communication
 
 The LPC2148 acts as the SPI master and the EEPROM acts as the SPI slave.
----
+
 SPI Signals:
 ---
    SCK  → Serial Clock
@@ -451,7 +452,7 @@ The application reads these values whenever RTC information is required.
 
 This eliminates the need for a separate external RTC module for the basic timekeeping function.
 
-## 🌡️ 24. Temperature Measurement
+##  24. Temperature Measurement
 
 The LM35 provides an analog voltage proportional to temperature.
 
@@ -459,7 +460,7 @@ The LPC2148 ADC converts this analog signal into a digital value.
 
 For example:
 -----
-   LM35 Output ≈ 300 mV,
+   LM35 Output ≈ 300 mV
         ---
    Temperature ≈ 30°C
 -----
@@ -471,17 +472,17 @@ The actual conversion depends on the ADC reference voltage and configuration.
 
 ##  26. Engineering Challenges and Solutions
 
-Challenge	Solution
-Wireless communication	HC-05 Bluetooth
-Continuous UART reception	UART interrupt
-Long message display	Scrolling algorithm
-Multiple display patterns	Character pattern table
-Limited GPIO outputs	74HC164 shift registers
-Configuration retention	SPI EEPROM
-Real-time clock information	LPC2148 RTC
-Temperature measurement	LM35 + ADC
-Invalid RTC input	Range validation
-User control during display	Special ! command
+Challenge	Solution,
+Wireless communication	HC-05 Bluetooth,
+Continuous UART reception	UART interrupt,
+Long message display	Scrolling algorithm,
+Multiple display patterns	Character pattern table,
+Limited GPIO outputs	74HC164 shift registers,
+Configuration retention	SPI EEPROM,
+Real-time clock information	LPC2148 RTC,
+Temperature measurement	LM35 + ADC,
+Invalid RTC input	Range validation,
+User control during display	Special ! command,
 Custom messages	Bluetooth Text Edit Mode
 
 ##  27. Key Features
@@ -519,8 +520,6 @@ Separate drivers can be developed for each hardware peripheral.
 Additional sensors, display modes, and communication functions can be added in future versions.
 
 ##  28. Applications
-
-This project can be adapted for:
 
 Wireless digital notice boards
 College and school information displays
