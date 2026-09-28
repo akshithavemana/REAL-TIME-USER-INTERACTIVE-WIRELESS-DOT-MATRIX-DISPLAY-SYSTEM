@@ -268,7 +268,7 @@ The RTC continuously provides updated information.
 The LM35 temperature sensor is connected to an ADC input of the LPC2148.
 
 The LM35 produces an approximately linear voltage proportional to temperature.
- ---          
+          
    10 mV ≈ 1°C
  ---         
    Temperature Acquisition Process
@@ -280,7 +280,7 @@ Example:
 The ADC value is converted into temperature using the reference voltage and ADC resolution.
 
 General Formula
------
+
    Temperature (°C)
     ---
     ADC Value × Vref
@@ -315,7 +315,7 @@ Month
 Year
 
 Example format:
----
+
    SS:MM:HH,
 ---
    DAY DD/MM/YY
@@ -331,7 +331,7 @@ The firmware validates the received values before updating the RTC.
 Input validation prevents incorrect values from being written to the RTC.
 
 Valid Ranges
----
+
    Seconds	: 00–59
    ---
    Minutes	: 00–59
@@ -389,7 +389,7 @@ The 74HC164 is an 8-bit serial-in/parallel-out shift register.
 It receives serial data and shifts the data according to the clock signal.
 
 Main Signals:
----
+
    Data — serial input
    ---
    Clock — shifts the data
@@ -416,7 +416,7 @@ Reliable command reception
 The LPC2148 acts as the SPI master and the EEPROM acts as the SPI slave.
 
 SPI Signals:
----
+
    SCK  → Serial Clock
 ---
    MOSI → Master Out Slave In
@@ -459,7 +459,7 @@ The LM35 provides an analog voltage proportional to temperature.
 The LPC2148 ADC converts this analog signal into a digital value.
 
 For example:
------
+
    LM35 Output ≈ 300 mV
         ---
    Temperature ≈ 30°C
