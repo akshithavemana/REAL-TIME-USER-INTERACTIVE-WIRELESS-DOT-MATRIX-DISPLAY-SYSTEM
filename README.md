@@ -7,14 +7,14 @@ The Real-Time User-Interactive Wireless Dot-Matrix Display System is an ARM7-bas
 
 The system is developed around the LPC2148 ARM7 microcontroller and integrates several peripherals and external devices, including:
 
-• HC-05 Bluetooth module for wireless communication
-• UART0 for serial communication+
-• 74HC164 shift registers for dot-matrix interfacing
-• SPI EEPROM for non-volatile configuration storage
-• RTC for real-time clock and date information
-• LM35 temperature sensor for temperature measurement
-• ADC for analog temperature acquisition
-• 4×8×8 dot-matrix display for visual output
+ HC-05 Bluetooth module for wireless communication,
+ UART0 for serial communication,
+ 74HC164 shift registers for dot-matrix interfacing,
+ SPI EEPROM for non-volatile configuration storage,
+ RTC for real-time clock and date information,
+ LM35 temperature sensor for temperature measurement,
+ ADC for analog temperature acquisition,
+ 4×8×8 dot-matrix display for visual output.
 
 The user can wirelessly select different display modes, enter custom text, edit RTC information, and display real-time temperature and clock information.
 
@@ -22,20 +22,20 @@ The user can wirelessly select different display modes, enter custom text, edit 
 
 The main objective of this project is to develop a wireless and user-interactive real-time display system capable of:
 
-• Receiving commands wirelessly from an Android phone
-•  Providing a menu-based Bluetooth user interface
-• Displaying fixed messages
-•  Displaying blinking messages
-• Displaying scrolling messages
-• Displaying real-time clock information
-• Displaying RTC information with scrolling
-• Measuring temperature using LM35
-•  Displaying temperature on the dot matrix
-•  Editing display text through Bluetooth
-• Editing RTC values through Bluetooth
-• Storing configuration information in SPI EEPROM
-• Restoring the saved configuration after power ON
-• Providing responsive real-time user interaction
+ Receiving commands wirelessly from an Android phone,
+  Providing a menu-based Bluetooth user interface,
+ Displaying fixed messages,
+  Displaying blinking messages,
+ Displaying scrolling messages,
+ Displaying real-time clock information,
+ Displaying RTC information with scrolling,
+ Measuring temperature using LM35,
+  Displaying temperature on the dot matrix,
+  Editing display text through Bluetooth,
+ Editing RTC values through Bluetooth,
+ Storing configuration information in SPI EEPROM,
+ Restoring the saved configuration after power ON,
+ Providing responsive real-time user interaction.
 
 ## 🏗️ 2. System Architecture
 
@@ -47,15 +47,15 @@ The overall system consists of the following major blocks:
 
 ## 🔩 3. Hardware Components
 
-• LPC2148 ARM7 microcontroller
-• HC-05	Wireless Bluetooth communication
-• 4×8×8 Dot Matrix Displays
-• 74HC164	Serial-to-parallel shift register
-• SPI EEPROM Stores configuration data
-• LM35 Temperature sensing
-• RTC Provides time and date
-• Android Phone User interface
-• Power Supply Provides required power to the system
+ LPC2148 ARM7 microcontroller,
+ HC-05	Wireless Bluetooth communication,
+ 4×8×8 Dot Matrix Displays,
+ 74HC164	Serial-to-parallel shift register,
+ SPI EEPROM Stores configuration data,
+ LM35 Temperature sensing,
+ RTC Provides time and date,
+ Android Phone User interface,
+ Power Supply Provides required power to the system.
 
 ## 💻 4. Software Requirements
 
@@ -69,52 +69,868 @@ The firmware is developed using Embedded C.
 
 ## 🔌 5. Major Interfaces Used
 
-# UART
+ UART
 
 UART is used for communication between the LPC2148 and HC-05.
+
+ SPI
+
+SPI is used for communication between the LPC2148 and external EEPROM.
+
+ ADC
+
+ADC is used to convert the analog voltage from the LM35 into a digital value.
+
+ RTC
+
+The LPC2148 internal RTC provides:
+
+Hours,
+Minutes,
+Seconds,
+Date,
+Month,
+Year,
+Day.
+
+ GPIO / Shift Register
+
+GPIO and shift-register signals are used to control the dot-matrix display.
+
+## 📱 6. User Interface
+
+The Android Bluetooth terminal acts as the main user interface.
+
+After connecting the phone to the HC-05, the system displays a menu.
+
+================================
+      BLUETOOTH DISPLAY MENU
+================================
+
+1. FIXED STRING
+2. FIXED STRING WITH BLINKING
+3. STRING WITH SCROLLING
+4. TIME DISPLAY
+5. RTC DISPLAY WITH SCROLLING
+6. TEMPERATURE DISPLAY
+7. TEXT EDIT MODE
+8. TIME EDIT MODE
+9. EXIT
+
+================================
+
+The user selects an option by sending the corresponding number.
+
+## 🚀 7. Step-by-Step System Working Process
+
+## Step 1 — Power ON
+When the system is powered ON, the LPC2148 starts executing the firmware.
+
+The microcontroller initializes the required hardware peripherals.
+
+POWER ON --> LPC2148 RESET --> Program Execution
+
+## Step 2 — Peripheral Initialization
+
+The LPC2148 initializes:
+GPIO
+UART0
+SPI
+RTC
+ADC
+Dot-matrix interface
+
+The initialization ensures that all hardware modules are ready before the main application starts.
+
+LPC2148
+   │
+   ├── GPIO Initialization
+   ├── UART Initialization
+   ├── SPI Initialization
+   ├── RTC Initialization
+   ├── ADC Initialization
+   └── Display Initialization
+
+   ## Step 3 — Initialize HC-05 Bluetooth
+
+   The HC-05 Bluetooth module is connected to UART0 of the LPC2148.
+
+The Android phone connects to the HC-05 using a Bluetooth terminal application.
+
+Android Phone
+      │
+   Bluetooth
+      │
+      ▼
+    HC-05
+      │
+     UART
+      │
+      ▼
+   LPC2148
+
+The HC-05 provides the wireless serial communication link.
+
+## Step 4 — Initialize SPI EEPROM
+
+The external SPI EEPROM is initialized.
+
+The LPC2148 communicates with the EEPROM using:
+
+SCK
+MOSI
+MISO
+Chip Select
+
+The EEPROM is used for storing configuration information.
+
+LPC2148
+   │
+   │ SPI
+   ▼
+EEPROM
+
+## Step 5 — Read Stored Configuration
+
+After initialization, the LPC2148 reads the previously stored configuration from EEPROM.
+
+For example, the system can store the selected operating mode.
+
+EEPROM
+   ↓
+Read Stored Data
+   ↓
+LPC2148
+   ↓
+Restore Configuration
+
+Because EEPROM is non-volatile, the information can remain stored even after power is removed.
+
+## Step 6 — Display Bluetooth Menu
+
+After initialization, the system sends the menu to the Android Bluetooth terminal.
+
+LPC2148
+   ↓
+UART0
+   ↓
+HC-05
+   ↓
+Android Phone
+
+The user can now select the required operation.
+
+## Step 6 — Display Bluetooth Menu
+
+After initialization, the system sends the menu to the Android Bluetooth terminal.
+
+LPC2148
+   ↓
+UART0
+   ↓
+HC-05
+   ↓
+Android Phone
+
+The user can now select the required operation.
+
+## Step 7 — Receive User Selection
+
+The user selects a menu option.
+
+For example:
+
+1
+
+for fixed-string display.
+
+The data travels through:
 
 Android Phone
       ↓
     HC-05
       ↓
-   UART0
+   UART0 RX
       ↓
-   LPC2148
-# SPI
+ UART Interrupt
+      ↓
+Receive Buffer
+      ↓
+Application
 
-SPI is used for communication between the LPC2148 and external EEPROM.
+UART interrupts allow the controller to receive data without continuously waiting for incoming characters.
 
-LPC2148
-   │
-   ├── SCK
-   ├── MOSI
-   ├── MISO
-   └── CS
-        │
-        ▼
-    SPI EEPROM
-# ADC
+## #Step 8 — Execute the Selected Function
 
-ADC is used to convert the analog voltage from the LM35 into a digital value.
+The LPC2148 checks the received option and executes the corresponding function.
 
-LM35
+User Selection
+      ↓
+Option Validation
+      ↓
+Selected Function
+      ↓
+Display / RTC / ADC Operation
+
+The system supports multiple operating modes.
+
+## 📝 8. Display Mode 1 — Fixed String
+
+In this mode, a predefined message is displayed on the dot matrix.
+
+Example:
+
+HELP
+
+The LPC2148 obtains the character pattern from the character table and sends the required data to the shift registers.
+
+Character
+   ↓
+Character Pattern
+   ↓
+74HC164
+   ↓
+Dot Matrix
+   ↓
+Visual Output
+Example Output
+┌──────────────┐
+│     HELP     │
+└──────────────┘
+## 💡 9. Display Mode 2 — Fixed String with Blinking
+
+In this mode, the selected message is displayed with a blinking effect.
+
+The display is periodically switched ON and OFF.
+
+Display ON
+    ↓
+Delay
+    ↓
+Display OFF
+    ↓
+Delay
+    ↓
+Display ON
+
+Example:
+
+HELP
+
+The user sees the message repeatedly appearing and disappearing.
+
+This mode demonstrates timing control and dynamic display operation.
+
+## 🔄 10. Display Mode 3 — Scrolling String
+
+This mode is used to display messages longer than the physical display width.
+
+Example:
+
+PROJECT SUCCESSFULLY COMPLETED
+
+The characters are shifted continuously across the dot matrix.
+
+Conceptually:
+
+PROJECT
  ↓
-Analog Voltage
+ROJECT
  ↓
-LPC2148 ADC
+OJECT S
  ↓
-Digital Value
-# RTC
+JECT SU
+ ↓
+...
 
-The LPC2148 internal RTC provides:
+The continuous shifting creates a scrolling effect.
+
+Applications
+Digital notice boards
+Advertisements
+Status messages
+Information displays
+## 🕒 11. Display Mode 4 — Time Display
+
+The LPC2148 internal RTC maintains the current time.
+
+The firmware reads:
 
 Hours
 Minutes
 Seconds
+
+Example:
+
+12:45:30
+
+The RTC data is converted into character patterns and displayed on the dot matrix.
+
+RTC
+ ↓
+Hour / Minute / Second
+ ↓
+Character Conversion
+ ↓
+Display Driver
+ ↓
+Dot Matrix
+## 📅 12. Display Mode 5 — RTC Display with Scrolling
+
+This mode displays complete RTC information.
+
+Example:
+
+TIME: 12:45:30
+DATE: 28/09/26
+DAY: MON
+
+Since this information is longer than the display width, it can be presented as scrolling text.
+
+The RTC continuously provides updated information.
+
+## 🌡️ 13. Display Mode 6 — Temperature Display
+
+The LM35 temperature sensor is connected to an ADC input of the LPC2148.
+
+The LM35 produces an approximately linear voltage proportional to temperature.
+
+10 mV ≈ 1°C
+Temperature Acquisition Process
+Temperature
+     ↓
+    LM35
+     ↓
+Analog Voltage
+     ↓
+LPC2148 ADC
+     ↓
+Digital ADC Value
+     ↓
+Temperature Calculation
+     ↓
+Dot-Matrix Display
+
+Example:
+
+30°C
+
+The ADC value is converted into temperature using the reference voltage and ADC resolution.
+
+General Formula
+Temperature (°C)
+=
+ADC Value × Vref
+----------------------------
+ADC Resolution × 10 mV
+## ✏️ 14. Display Mode 7 — Text Edit Mode
+
+Text Edit Mode allows the user to enter a custom message using the Android Bluetooth terminal.
+
+Process
+Enter Text on Android
+          ↓
+        HC-05
+          ↓
+        UART0
+          ↓
+       LPC2148
+          ↓
+     Receive Buffer
+          ↓
+     Store Text
+          ↓
+    Display on Matrix
+
+For example, the user can enter:
+
+WELCOME
+
+The microcontroller processes the received characters and displays the message on the dot matrix.
+
+This eliminates the need to modify the firmware every time the display message needs to be changed.
+
+## ⏰ 15. Display Mode 8 — Time Edit Mode
+
+Time Edit Mode allows the user to update the RTC through Bluetooth.
+
+The user can enter values for:
+
+Seconds
+Minutes
+Hours
+Day
+Date
+Month
+Year
+
+Example format:
+
+SS:MM:HH
+DAY DD/MM/YY
+Example
+30:45:12
+MON 28/09/26
+
+The firmware validates the received values before updating the RTC.
+
+## 🔐 16. Input Validation
+
+Input validation prevents incorrect values from being written to the RTC.
+
+Valid Ranges
+Parameter	Valid Range
+Seconds	00–59
+Minutes	00–59
+Hours	00–23
+Date	01–31
+Month	01–12
+Year	00–99
+Day	01–07
+
+If invalid data is received, the system rejects the input and sends an appropriate error message.
+
+Example:
+
+INVALID DATA
+
+This demonstrates defensive programming and reliable embedded-system design.
+
+## 💾 17. EEPROM Data Storage
+
+The external SPI EEPROM provides non-volatile storage.
+
+The system can store selected configuration information such as:
+
+Operating mode
+Fixed text
+Scrolling text
+Write Process
+User Configuration
+       ↓
+LPC2148
+       ↓
+SPI
+       ↓
+EEPROM
+       ↓
+Data Stored
+Read Process
+EEPROM
+   ↓
+SPI
+   ↓
+LPC2148
+   ↓
+Configuration Restored
+
+The stored information is retained even when the system is powered OFF.
+
+## 🔙 18. Returning to the Main Menu
+
+A special character is used to stop the current display operation.
+
+!
+
+When the LPC2148 receives ! through Bluetooth:
+
+Current Operation
+       ↓
+Receive "!"
+       ↓
+Stop Current Function
+       ↓
+Return to Main Menu
+
+This provides user control over the running operation.
+
+## 🔳 19. Dot-Matrix Display Processing
+
+The dot-matrix display requires appropriate row and column patterns to illuminate the required LEDs.
+
+The LPC2148 sends serial data to the 74HC164 shift registers.
+
+                 LPC2148
+                    │
+             Data + Clock
+                    │
+                    ▼
+              74HC164 ICs
+                    │
+              Parallel Output
+                    │
+                    ▼
+            4×8×8 Dot Matrix
+                    │
+                    ▼
+               LED Pattern
+
+The firmware continuously updates the required display patterns to produce stable characters.
+
+## 🔧 20. 74HC164 Shift Register
+
+The 74HC164 is an 8-bit serial-in/parallel-out shift register.
+
+It receives serial data and shifts the data according to the clock signal.
+
+Main Signals
+Data — serial input
+Clock — shifts the data
+Parallel outputs — connected to display control lines
+
+In this project, multiple 74HC164 devices are used to provide sufficient outputs for controlling the dot-matrix display.
+
+## 🔄 21. Complete Step-by-Step System Operation
+
+The complete working sequence is:
+
+1.
+
+Power ON the system.
+
+2.
+
+LPC2148 starts execution.
+
+3.
+
+Initialize GPIO.
+
+4.
+
+Initialize UART0.
+
+5.
+
+Initialize SPI.
+
+6.
+
+Initialize RTC.
+
+7.
+
+Initialize ADC.
+
+8.
+
+Initialize the dot-matrix display.
+
+9.
+
+Initialize the HC-05 Bluetooth communication.
+
+10.
+
+Read configuration from SPI EEPROM.
+
+11.
+
+Connect Android phone to HC-05.
+
+12.
+
+Display the main menu on the Bluetooth terminal.
+
+13.
+
+Wait for user selection.
+
+14.
+
+Receive the selection through UART interrupt.
+
+15.
+
+Validate the received command.
+
+16.
+
+Execute the selected display mode.
+
+17.
+
+Read RTC or ADC when required.
+
+18.
+
+Generate the corresponding character pattern.
+
+19.
+
+Send display data to the 74HC164 shift registers.
+
+20.
+
+Display the information on the 4×8×8 dot matrix.
+
+21.
+
+Continuously monitor Bluetooth input.
+
+22.
+
+If ! is received, stop the current operation.
+
+23.
+
+Return to the main menu.
+
+24.
+
+Continue the process until the user selects EXIT.
+
+## 🔁 22. Complete Working Sequence
+┌──────────────────────────┐
+│         POWER ON         │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ LPC2148 Initialization   │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ UART / SPI / RTC / ADC   │
+│ GPIO / Display Init      │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ Read Configuration       │
+│ from SPI EEPROM          │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ Connect Android to HC-05 │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ Display Bluetooth Menu   │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ Receive User Selection   │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ Validate User Input      │
+└────────────┬─────────────┘
+             ↓
+       ┌─────┴─────┐
+       ↓           ↓
+   Display       Edit
+    Mode         Mode
+       ↓           ↓
+ Fixed / Blink  Text / RTC
+ Scroll / RTC
+ Temperature
+       │           │
+       └─────┬─────┘
+             ↓
+┌──────────────────────────┐
+│ Generate Display Pattern │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│       74HC164            │
+│    Shift Registers       │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│   4×8×8 Dot-Matrix       │
+└────────────┬─────────────┘
+             ↓
+┌──────────────────────────┐
+│ Monitor Bluetooth Input  │
+└────────────┬─────────────┘
+             ↓
+       Receive "!" ?
+        /          \
+      YES           NO
+       ↓             ↓
+Return to Menu    Continue
+## 🧠 23. Firmware Architecture
+
+The firmware follows a modular structure.
+
+Application Layer
+       │
+       ├── Menu Management
+       ├── Display Modes
+       ├── Text Editing
+       └── Time Editing
+       │
+       ▼
+Driver Layer
+       │
+       ├── UART Driver
+       ├── SPI Driver
+       ├── EEPROM Driver
+       ├── RTC Driver
+       ├── ADC Driver
+       ├── LM35 Driver
+       └── Dot-Matrix Driver
+       │
+       ▼
+Hardware Layer
+       │
+       ├── LPC2148
+       ├── HC-05
+       ├── EEPROM
+       ├── LM35
+       ├── RTC
+       ├── 74HC164
+       └── Dot Matrix
+
+This modular design makes the program easier to understand, debug, modify, and maintain.
+
+📡 24. UART Interrupt-Based Communication
+
+UART0 is used for communication with the HC-05.
+
+Instead of continuously polling the UART receive register, the system uses a UART receive interrupt.
+
+Working
+Bluetooth Data
+      ↓
+HC-05
+      ↓
+UART0
+      ↓
+Receive Interrupt
+      ↓
+UART ISR
+      ↓
+Receive Buffer
+      ↓
+Application
+Advantages
+Non-blocking data reception
+Better system responsiveness
+Efficient CPU utilization
+Suitable for real-time applications
+Reliable command reception
+## 💾 25. SPI EEPROM Communication
+
+The LPC2148 acts as the SPI master and the EEPROM acts as the SPI slave.
+
+SPI Signals
+SCK  → Serial Clock
+MOSI → Master Out Slave In
+MISO → Master In Slave Out
+CS   → Chip Select
+
+The EEPROM supports operations such as:
+
+WRITE
+READ
+WRITE ENABLE
+WRITE DISABLE
+
+The firmware uses these operations to store and retrieve configuration data.
+
+## 🕐 26. Real-Time Clock Operation
+
+The LPC2148 internal RTC maintains the current date and time.
+
+The RTC provides:
+
+Hour
+Minute
+Second
 Date
 Month
 Year
 Day
-# GPIO / Shift Register
 
-GPIO and shift-register signals are used to control the dot-matrix display.
+The application reads these values whenever RTC information is required.
+
+This eliminates the need for a separate external RTC module for the basic timekeeping function.
+
+## 🌡️ 27. Temperature Measurement
+
+The LM35 provides an analog voltage proportional to temperature.
+
+The LPC2148 ADC converts this analog signal into a digital value.
+
+LM35
+ ↓
+Analog Output
+ ↓
+ADC
+ ↓
+Digital Value
+ ↓
+Temperature Calculation
+ ↓
+Display
+
+For example:
+
+LM35 Output ≈ 300 mV
+        ↓
+Temperature ≈ 30°C
+
+The actual conversion depends on the ADC reference voltage and configuration.
+
+## ⚙️ 28. Engineering Challenges and Solutions
+Challenge	Solution
+Wireless communication	HC-05 Bluetooth
+Continuous UART reception	UART interrupt
+Long message display	Scrolling algorithm
+Multiple display patterns	Character pattern table
+Limited GPIO outputs	74HC164 shift registers
+Configuration retention	SPI EEPROM
+Real-time clock information	LPC2148 RTC
+Temperature measurement	LM35 + ADC
+Invalid RTC input	Range validation
+User control during display	Special ! command
+Custom messages	Bluetooth Text Edit Mode
+## ⭐ 29. Key Features
+🔹 Wireless Control
+
+The display can be controlled through an Android phone using Bluetooth.
+
+🔹 Multiple Display Modes
+
+The system supports fixed, blinking, scrolling, time, RTC, and temperature displays.
+
+🔹 Real-Time Operation
+
+RTC and ADC information can be processed and displayed during runtime.
+
+🔹 User Programmability
+
+The user can edit text and RTC information through the Bluetooth terminal.
+
+🔹 Non-Volatile Storage
+
+SPI EEPROM stores selected configuration information.
+
+🔹 Interrupt-Based Communication
+
+UART interrupts provide responsive Bluetooth data reception.
+
+🔹 Modular Firmware
+
+Separate drivers can be developed for each hardware peripheral.
+
+🔹 Expandable Architecture
+
+Additional sensors, display modes, and communication functions can be added in future versions.
+
+## 🏭 30. Applications
+
+This project can be adapted for:
+
+Wireless digital notice boards
+College and school information displays
+Industrial status displays
+Factory information panels
+Temperature monitoring systems
+Laboratory monitoring systems
+Digital advertising boards
+Real-time clock displays
+Wireless message boards
+Embedded-system educational platforms
+Event information displays
+Smart display systems
