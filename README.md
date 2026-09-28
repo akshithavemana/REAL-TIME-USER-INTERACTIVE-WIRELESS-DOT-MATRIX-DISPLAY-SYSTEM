@@ -272,7 +272,7 @@ The LM35 produces an approximately linear voltage proportional to temperature.
    10 mV ≈ 1°C
  ---         
    Temperature Acquisition Process
- ---  
+ 
 Example:
 
 30°C
@@ -282,9 +282,9 @@ The ADC value is converted into temperature using the reference voltage and ADC 
 General Formula
 
    Temperature (°C)
-    ---
-    ADC Value × Vref
-----
+
+   ADC Value × Vref
+---
    ADC Resolution × 10 mV
 -----
 
@@ -316,7 +316,7 @@ Year
 
 Example format:
 
-   SS:MM:HH,
+   SS:MM:HH
 ---
    DAY DD/MM/YY
 ---
@@ -461,7 +461,7 @@ The LPC2148 ADC converts this analog signal into a digital value.
 For example:
 
    LM35 Output ≈ 300 mV
-        ---
+---
    Temperature ≈ 30°C
 -----
 The actual conversion depends on the ADC reference voltage and configuration.
