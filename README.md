@@ -267,10 +267,11 @@ The RTC continuously provides updated information.
 The LM35 temperature sensor is connected to an ADC input of the LPC2148.
 
 The LM35 produces an approximately linear voltage proportional to temperature.
----
-10 mV ≈ 1°C
-Temperature Acquisition Process
----
+ ---          
+   10 mV ≈ 1°C
+ ---         
+   Temperature Acquisition Process
+ ---  
 Example:
 
 30°C
@@ -279,17 +280,15 @@ The ADC value is converted into temperature using the reference voltage and ADC 
 
 General Formula
 -----
-Temperature (°C)
-=
-ADC Value × Vref
+   Temperature (°C)
+    ---
+    ADC Value × Vref
 ----
-ADC Resolution × 10 mV
+   ADC Resolution × 10 mV
 -----
 ##  14. Display Mode 7 — Text Edit Mode
 
 Text Edit Mode allows the user to enter a custom message using the Android Bluetooth terminal.
-
-
 
 For example, the user can enter:
 
@@ -315,8 +314,9 @@ Year
 
 Example format:
 ---
-SS:MM:HH,
-DAY DD/MM/YY
+   SS:MM:HH,
+---
+   DAY DD/MM/YY
 ---
 Example
 30:45:12
@@ -329,14 +329,22 @@ The firmware validates the received values before updating the RTC.
 Input validation prevents incorrect values from being written to the RTC.
 ---
 Valid Ranges
+---
 Parameter	Valid Range
-Seconds	: 00–59,
-Minutes	: 00–59,
-Hours	: 00–23,
-Date	: 01–31,
-Month	: 01–12,
-Year	: 00–99,
-Day	: 01–07
+---
+   Seconds	: 00–59
+   ---
+   Minutes	: 00–59
+   ---
+   Hours	: 00–23
+   ---
+   Date	: 01–31
+   ---
+   Month	: 01–12
+   ---
+   Year	: 00–99
+   ---
+   Day	: 01–07
 ---
 If invalid data is received, the system rejects the input and sends an appropriate error message.
 
@@ -381,9 +389,12 @@ The 74HC164 is an 8-bit serial-in/parallel-out shift register.
 It receives serial data and shifts the data according to the clock signal.
 ---
 Main Signals:
-Data — serial input,
-Clock — shifts the data,
-Parallel outputs — connected to display control lines
+---
+   Data — serial input
+   ---
+   Clock — shifts the data
+   ---
+   Parallel outputs — connected to display control lines
 ---
 In this project, multiple 74HC164 devices are used to provide sufficient outputs for controlling the dot-matrix display.
 
@@ -404,10 +415,14 @@ Reliable command reception
 The LPC2148 acts as the SPI master and the EEPROM acts as the SPI slave.
 ---
 SPI Signals:
-SCK  → Serial Clock,
-MOSI → Master Out Slave In,
-MISO → Master In Slave Out,
-CS   → Chip Select
+---
+   SCK  → Serial Clock
+---
+   MOSI → Master Out Slave In
+---
+   MISO → Master In Slave Out
+---
+   CS   → Chip Select
 ---
 The EEPROM supports operations such as:
 
@@ -444,9 +459,9 @@ The LPC2148 ADC converts this analog signal into a digital value.
 
 For example:
 -----
-LM35 Output ≈ 300 mV,
+   LM35 Output ≈ 300 mV,
         ---
-Temperature ≈ 30°C
+   Temperature ≈ 30°C
 -----
 The actual conversion depends on the ADC reference voltage and configuration.
 
@@ -455,6 +470,7 @@ The actual conversion depends on the ADC reference voltage and configuration.
 ![image alt](https://github.com/akshithavemana/REAL-TIME-USER-INTERACTIVE-WIRELESS-DOT-MATRIX-DISPLAY-SYSTEM/blob/main/hardware.png)
 
 ##  26. Engineering Challenges and Solutions
+
 Challenge	Solution
 Wireless communication	HC-05 Bluetooth
 Continuous UART reception	UART interrupt
@@ -469,6 +485,7 @@ User control during display	Special ! command
 Custom messages	Bluetooth Text Edit Mode
 
 ##  27. Key Features
+
 🔹 Wireless Control
 
 The display can be controlled through an Android phone using Bluetooth.
@@ -501,7 +518,7 @@ Separate drivers can be developed for each hardware peripheral.
 
 Additional sensors, display modes, and communication functions can be added in future versions.
 
-## 🏭 28. Applications
+##  28. Applications
 
 This project can be adapted for:
 
