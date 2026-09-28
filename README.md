@@ -41,4 +41,4 @@ Providing responsive real-time user interaction
 
 The overall system consists of the following major blocks:
 
-![image alt](https://github.com/akshithavemana/TIME-STAMPED-SENSOR-DATA-LOGGER/blob/be5b5bf0266f8c0ed09d9fa99af182f7c95bad34/554320139-62f7dc34-b9bd-4a9d-9b7e-60ef0b193755.jpeg)
+![image alt](https:https://github.com/akshithavemana/REAL-TIME-USER-INTERACTIVE-WIRELESS-DOT-MATRIX-DISPLAY-SYSTEM/blob/main/Screenshot%202026-09-24%20170110.png)
