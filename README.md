@@ -40,3 +40,5 @@ Providing responsive real-time user interaction
 ## 🏗️ 2. System Architecture
 
 The overall system consists of the following major blocks:
+
+![image alt](https://github.com/akshithavemana/TIME-STAMPED-SENSOR-DATA-LOGGER/blob/be5b5bf0266f8c0ed09d9fa99af182f7c95bad34/554320139-62f7dc34-b9bd-4a9d-9b7e-60ef0b193755.jpeg)
