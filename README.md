@@ -22,27 +22,38 @@ The user can wirelessly select different display modes, enter custom text, edit 
 
 The main objective of this project is to develop a wireless and user-interactive real-time display system capable of:
 
-Receiving commands wirelessly from an Android phone
-Providing a menu-based Bluetooth user interface
-Displaying fixed messages
-Displaying blinking messages
-Displaying scrolling messages
-Displaying real-time clock information
-Displaying RTC information with scrolling
-Measuring temperature using LM35
-Displaying temperature on the dot matrix
-Editing display text through Bluetooth
-Editing RTC values through Bluetooth
-Storing configuration information in SPI EEPROM
-Restoring the saved configuration after power ON
-Providing responsive real-time user interaction
+. Receiving commands wirelessly from an Android phone
+. Providing a menu-based Bluetooth user interface
+. Displaying fixed messages
+. Displaying blinking messages
+. Displaying scrolling messages
+. Displaying real-time clock information
+. Displaying RTC information with scrolling
+. Measuring temperature using LM35
+. Displaying temperature on the dot matrix
+. Editing display text through Bluetooth
+. Editing RTC values through Bluetooth
+. Storing configuration information in SPI EEPROM
+. Restoring the saved configuration after power ON
+. Providing responsive real-time user interaction
 
 ## 🏗️ 2. System Architecture
 
 The overall system consists of the following major blocks:
 
+
 ![image alt](https://github.com/akshithavemana/REAL-TIME-USER-INTERACTIVE-WIRELESS-DOT-MATRIX-DISPLAY-SYSTEM/blob/main/Screenshot%202026-09-24%20170110.png)
 
 
+## 🔩 3. Hardware Components
 
-
+# Component	                 Purpose
+LPC2148 ARM7	             Main microcontroller
+HC-05	Wireless             Bluetooth communication
+4×8×8 Dot Matrix	         Displays characters and information
+74HC164	                   Serial-to-parallel shift register for display control
+SPI EEPROM	               Stores configuration data
+LM35	                     Temperature sensing
+RTC	                       Provides time and date
+Android Phone	             User interface
+Power Supply	             Provides required power to the system
